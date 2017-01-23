@@ -1,0 +1,30 @@
+version: '2'
+services:
+  httpd:
+    build: .
+    links:
+      - maria_db:db
+    ports:
+      - 8180:80
+    volumes:
+      - ~/public_html:/var/www/html
+  maria_db:
+    container_name: mariadb
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+    ports:
+      - 3306:3306
+    expose:
+      - "3306"
+    volumes:
+      - ~/data-mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - maria_db:db
+    ports:
+      - 8181:80
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: docker
