@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+  myapp:
+    tty: true
+    image: bitnami/laravel:latest
+    environment:
+      - DB_HOST=maria_db
+      - DB_USERNAME=my_user
+      - DB_DATABASE=my_database
+      - DB_PASSWORD=my_password
+    depends_on:
+      - maria_db
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+  maria_db:
+    container_name: mariadb
+    image: mariadb
+    environment:
+      - MYSQL_DATABASE=my_database
+      - MYSQL_USER=my_user
+      - MYSQL_PASSWORD=my_password
+      - MYSQL_ROOT_PASSWORD=docker
+    ports:
+      - 3306:3306
+    expose:
+      - "3306"
+    volumes:
+      - ./data-mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - maria_db
+    links:
+      - maria_db:db
+    ports:
+      - 8181:80
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: docker
