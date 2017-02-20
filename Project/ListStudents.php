@@ -8,11 +8,11 @@ $title = "Show Students";
 function headerExtra()
 {
     ?>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
-
+    <script>
+        console.log("This is Body End code");
+    </script>
     <?php
 }
-
 include_once "Header.php";
 
 //Logic related to Database!

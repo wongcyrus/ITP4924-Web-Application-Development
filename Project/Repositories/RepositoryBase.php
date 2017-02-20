@@ -6,7 +6,7 @@ use \PDO;
 
 abstract class RepositoryBase
 {
-    protected $connection;
+    protected $connection;//This is PDO Object!
 
     public function __construct(PDO $connection = null)
     {

@@ -2,16 +2,15 @@
 include_once $_SERVER['DOCUMENT_ROOT']  . "/autoload.php";
 //Set up page title!
 $title = "Show Students";
-
 //If you need header include other javascript or CSS
 function headerExtra()
 {
     ?>
-
-
+    <script>
+        console.log("This is Body Start code");
+    </script>
     <?php
 }
-
 include_once "Header.php";
 
 //Logic related to Database!
