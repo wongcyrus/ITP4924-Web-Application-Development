@@ -2,20 +2,20 @@ version: '2'
 
 services:
   mariadb:
-    image: mariadb
-    command: mysqld --innodb-buffer-pool-size=20M
+    image: bitnami/mariadb:latest
     volumes:
-      - "./data-mysql:/var/lib/mysql:rw"
+      - ./data-mysql:/bitnami/mariadb
     environment:
-      - "MYSQL_DATABASE=my_database"
-      - "MYSQL_USER=my_user"
-      - "MYSQL_PASSWORD=my_password"
-      - "MYSQL_ROOT_PASSWORD=docker"
+      - MARIADB_EXTRA_FLAGS=--innodb-buffer-pool-size=20M
+      - MARIADB_USER=my_user
+      - MARIADB_PASSWORD=my_password
+      - MARIADB_ROOT_PASSWORD=docker
+      - MARIADB_DATABASE=my_database
     ports:
-      - "3306:3306"
+      - 3306:3306
   myapp:
     tty: true
-    image: bitnami/laravel:latest
+    image: bitnami/laravel:5.5.0-r0
     environment:
       - DB_HOST=mariadb
       - DB_USERNAME=my_user
@@ -26,7 +26,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./:/app
+      - ./public_html:/app
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
