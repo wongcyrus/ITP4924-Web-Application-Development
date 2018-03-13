@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   mariadb:
@@ -15,7 +15,9 @@ services:
       - 3306:3306
   myapp:
     tty: true
-    image: bitnami/laravel:5.5.0-r0
+    build: .
+    links:
+      - mariadb:mariadb
     environment:
       - DB_HOST=mariadb
       - DB_USERNAME=my_user
@@ -26,7 +28,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./public_html:/app
+      - ./public_html:/app 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
