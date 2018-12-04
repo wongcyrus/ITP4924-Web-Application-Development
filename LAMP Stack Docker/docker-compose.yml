@@ -5,9 +5,9 @@ services:
     links:
       - maria_db:db
     ports:
-      - 8180:80
+      - 80:80
     volumes:
-      - ~/public_html:/var/www/html
+      - ./public_html:/var/www/html
   maria_db:
     container_name: mariadb
     image: mariadb
@@ -18,13 +18,13 @@ services:
     expose:
       - "3306"
     volumes:
-      - ~/data-mysql:/var/lib/mysql
+      - ./data-mysql:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     links:
       - maria_db:db
     ports:
-      - 8181:80
+      - 8080:80
     environment:
       PMA_USER: root
       PMA_PASSWORD: docker
